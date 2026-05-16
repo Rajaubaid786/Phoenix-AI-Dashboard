@@ -122,9 +122,10 @@ const Dashboard = ({
 
         {/* Activity Feed */}
         <div>
-          <ActivityFeed
-            activities={activities}
-          />
+          <ActivityFeed 
+  activities={activities} 
+  setActivities={setActivities} // <--- Ye prop pass karna mat bhoolna
+/>
         </div>
       </div>
 
