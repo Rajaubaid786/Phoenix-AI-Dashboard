@@ -84,3 +84,4 @@ const RevenueChart = ({ clients = [] }) => {
 };
 
 export default RevenueChart;
+
