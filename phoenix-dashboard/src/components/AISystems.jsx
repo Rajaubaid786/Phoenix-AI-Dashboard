@@ -1,11 +1,20 @@
 import { motion } from "framer-motion";
-import { FaExternalLinkAlt, FaRobot, FaCheckCircle, FaClock } from "react-icons/fa";
+import { FaExternalLinkAlt, FaRobot, FaCheckCircle, FaClock, FaArrowLeft } from "react-icons/fa";
 
-// 🚀 Yahan { clients = [] } likhna zaroori hai taake data receive ho
-const AISystems = ({ clients = [] }) => {
+// 🚀 setActiveTab prop add ki taake Dashboard par wapas ja saken
+const AISystems = ({ setActiveTab, clients = [] }) => {
   return (
     <div className="p-4 md:p-6">
       <div className="mb-8">
+        {/* 🔥 Back Button Section */}
+        <button 
+          onClick={() => setActiveTab("Dashboard")} 
+          className="flex items-center gap-2 text-subtext hover:text-primary text-xs mb-3 transition-all group"
+        >
+          <FaArrowLeft size={10} className="group-hover:-translate-x-1 transition-transform" />
+          Back to Dashboard
+        </button>
+
         <h1 className="text-3xl font-bold">AI Project Tracking</h1>
         <p className="text-subtext mt-1">Status of custom Retell AI agents for each client</p>
       </div>

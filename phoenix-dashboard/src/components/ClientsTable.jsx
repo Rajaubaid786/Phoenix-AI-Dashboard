@@ -3,11 +3,14 @@ import { motion } from "framer-motion";
 import {
   FaEdit,
   FaTrash,
+  FaArrowLeft,
 } from "react-icons/fa";
 
 import AddClientModal from "./AddClientModal";
 
 const ClientsTable = ({
+  setActiveTab,
+  showBack = false, // 🔥 Default false rakha hai taake dashboard par hide rahay
   clients,
   setClients,
   activities,
@@ -61,7 +64,18 @@ const ClientsTable = ({
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-xl font-semibold">Clients Overview</h2>
+          {/* 🔥 Conditional Back Button: Sirf tab dikhega jab showBack={true} ho */}
+          {showBack && (
+            <button 
+              onClick={() => setActiveTab("Dashboard")}
+              className="flex items-center gap-2 text-subtext hover:text-primary text-xs mb-3 transition-all group"
+            >
+              <FaArrowLeft size={10} className="group-hover:-translate-x-1 transition-transform" />
+              Back to Dashboard
+            </button>
+          )}
+
+          <h2 className="text-xl font-semibold text-white">Clients Overview</h2>
           <p className="text-subtext text-sm mt-1">Manage all onboarded AI clients</p>
         </div>
 
@@ -194,7 +208,6 @@ const ClientsTable = ({
                 </div>
               </div>
 
-              {/* 🔥 FIXED: Added Action Buttons for Mobile */}
               <div className="mt-4 flex items-center justify-between">
                 <span className="text-[10px] text-subtext italic">Client ID: #{client.id.toString().slice(-4)}</span>
                 <div className="flex gap-2">
@@ -217,7 +230,6 @@ const ClientsTable = ({
         )}
       </div>
 
-      {/* Modal remains the same */}
       <AddClientModal
         isOpen={isOpen}
         setIsOpen={setIsOpen}

@@ -5,8 +5,9 @@ import Sidebar from "./components/Sidebar";
 
 // Pages
 import Dashboard from "./pages/Dashboard";
-import ClientsTable from "./components/ClientsTable"; // Direct import for Clients view
+import ClientsTable from "./components/ClientsTable"; 
 import AISystems from "./components/AISystems";
+
 // Data
 import { clientsData } from "./data/dashboardData";
 
@@ -16,7 +17,7 @@ function App() {
   // 1. Navigation State
   const [activeTab, setActiveTab] = useState("Dashboard");
 
-  // 2. Global States (Lifted here for Sidebar and other views)
+  // 2. Global States
   const [clients, setClients] = useState(() => {
     const savedClients = localStorage.getItem("phoenix_clients");
     return savedClients ? JSON.parse(savedClients) : clientsData;
@@ -40,7 +41,7 @@ function App() {
 
   return (
     <div className="bg-bg text-text min-h-screen flex">
-      {/* Sidebar - Passing states for Navigation & Progress Bar */}
+      {/* Sidebar */}
       <Sidebar
         isOpen={isOpen}
         setIsOpen={setIsOpen}
@@ -52,7 +53,7 @@ function App() {
       {/* Main Content Area */}
       <main className="flex-1 overflow-x-hidden">
         
-        {/* Conditional Rendering based on Sidebar Buttons */}
+        {/* 1. Dashboard View */}
         {activeTab === "Dashboard" && (
           <Dashboard
             setIsOpen={setIsOpen}
@@ -63,10 +64,12 @@ function App() {
           />
         )}
 
+        {/* 2. Clients Management View */}
         {activeTab === "Clients" && (
           <div className="p-4 md:p-6">
-             <h1 className="text-3xl font-bold mb-8">Clients Management</h1>
              <ClientsTable 
+                setActiveTab={setActiveTab} 
+                showBack={true} // 🔥 Sirf yahan 'true' kiya hai taake button nazar aaye
                 clients={clients}
                 setClients={setClients}
                 activities={activities}
@@ -75,9 +78,15 @@ function App() {
           </div>
         )}
 
+        {/* 3. AI Systems View */}
         {activeTab === "AI Systems" && (
-  <AISystems clients={clients} />  /* <-- Ye 'clients={clients}' likhna lazmi ha */
-)}
+          <div className="p-4 md:p-6">
+            <AISystems 
+              setActiveTab={setActiveTab} 
+              clients={clients} 
+            />
+          </div>
+        )}
 
       </main>
     </div>
